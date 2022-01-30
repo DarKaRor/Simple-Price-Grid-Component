@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap');
+
+*{
+    padding:0;
+    margin:0;
+    box-sizing:border-box;
+}
+
+html{
+    font-size: 16px;
+}
+
+// Variables
+
+$cyan: hsl(179, 62%, 43%);
+$bright-yellow: hsl(71, 73%, 54%);
+$light-gray: hsl(204, 43%, 93%);
+$grayish-blue: hsl(218, 22%, 67%);
+
+// Mixins
+
+@mixin flex-align($align: center, $justify: center) {
+    display: flex;
+    align-items: $align;
+    justify-content: $justify;
+}
+
+body{
+    font-family: 'Karla', sans-serif;
+    color: $grayish-blue;
+    background-color: $light-gray;
+    min-height: 100vh;
+    min-width: 100vw;
+    @include flex-align(center, center);
+    padding:2rem;
+}
+
+footer{
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+
+    a{
+        color: $cyan;
+        text-decoration: none;
+        font-weight: 700;
+        margin-top: 1rem;
+    }
+}
+
+.container{
+    display:grid;
+    max-width:636px;
+    width:100%;
+    overflow:hidden;
+    border-radius: 10px;
+    grid-template: 
+        "top top"
+        "left right" / 1fr 1fr;
+}
+
+$sides : top left right;
+
+@each $side in $sides {
+    ##{$side}{
+        grid-area: $side;
+    }
+}
+
+.textblock{
+    padding:2.5em;
+    background-color:white;
+    $parent: "textblock";
+    height:100%;
+    width:calc(100% + .5px);
+
+    &__title{
+        font-size: 1.47rem;
+        font-weight: 700;
+        margin-bottom: .9em;
+    }
+
+    &__text{
+        word-spacing: -.06em;
+        line-height: 1.6;
+
+        &--remark{
+            color: $bright-yellow;
+            font-weight: 700;
+            font-size: 1.11rem;
+            margin-bottom: 0.5em;
+        }
+    }
+
+    &--blue{
+        background-color: #2bb3b1;
+    }
+
+    &--cyan{
+        background-color:#4abebd;
+
+        .#{$parent}__text{
+            font-size: .85rem;
+        }
+    }
+
+    &--white{
+        color:white;
+        .#{$parent}__title{
+            font-size: 1.1rem;
+        }
+
+        .#{$parent}__text--remark{
+            color: #8de2e7;
+            font-weight: 400;
+            @include flex-align(center,initial);
+            line-height: 2.6em;
+            font-size: 1rem;
+
+            span{
+                font-size: 1.95rem;
+                font-weight: 700;
+                color:white;
+                margin-right: .4em;
+            }
+        }
+    }
+}
+
+.button{
+    background-color: $bright-yellow;
+    color: white;
+    font-size: 1rem;
+    font-weight: 400;
+    font-family: 'Karla', sans-serif;
+    width:100%;
+    padding: .9em;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    margin-top: 1.5em;
+    transition: background-color .2s ease-in-out;
+
+    &:hover{
+        background-color: $bright-yellow + 20%;
+    }
+}
+
+.shadow{
+    box-shadow: 0px 10px 20px 1px rgba(50, 35, 68, 0.2);
+}
+
+
+@media only screen and (max-width:480px){
+
+    html{
+        font-size: 13px;
+    }
+
+    .container{
+        display:flex;
+        flex-direction:column;
+    }
+}
